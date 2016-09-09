@@ -1,10 +1,9 @@
-var path = require('path')
-var webpack = require('webpack')
 
 module.exports = {
-  entry: './main.js',
+  entry: './src/main.js',
   output: {
-    path: __dirname,
+    path: './build',
+    publicPath: '/build/',
     filename: 'bundle.js'
   },
   module: {
@@ -16,6 +15,22 @@ module.exports = {
         query: {
           presets: ['es2015', 'react']
         }
+      },
+      {
+        test: /\.css$/,
+        loader: 'style-loader'
+      },
+      {
+        test: /\.css$/,
+        loader: 'css-loader',
+        query: {
+          modules: true,
+          localIdentName: '[name]__[local]___[hash:base64:5]'
+        }
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        loader: 'file-loader?name=public/fonts/[name].[ext]'
       }
     ]
   },

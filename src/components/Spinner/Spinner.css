@@ -1,0 +1,46 @@
+.loading {
+  display: inline-block;
+  font-size: 3rem;
+  position: absolute;
+  padding-top: 0.625em;
+  width: 2.5em;
+  height: 1.875em;
+  animation: rotate360 2s 0.6s linear infinite none;
+  background-color: transparent;
+}
+
+.bar {
+  font-size: 3rem;
+  position: absolute;
+  transform-origin: right bottom;
+  transform: rotate3d(0, 0, 1, 0);
+  width: 1.25em;
+  height: 0.625em;
+  border-radius: 0.625em 0 0.625em 0;
+  background-color: lightgreen;
+}
+.bar .bar {
+  background-color: gold;
+  animation: rotate90 0.2s 1 steps(10) forwards;
+}
+.bar .bar .bar {
+  background-color: orange;
+  animation: rotate90 0.2s 0.2s 1 steps(10) forwards;
+}
+.bar .bar .bar .bar {
+  background-color: tomato;
+  animation: rotate90 0.2s 0.4s 1 steps(10) forwards;
+}
+
+.play { animation-play-state: running; }
+.pause { animation-play-state: paused; }
+
+@keyframes rotate90 {
+  0% { transform: rotate3d(0, 0, 1, 0deg); }
+  100% { transform: rotate3d(0, 0, 1, 90deg); }
+}
+
+@keyframes rotate360 {
+  0% { transform: rotate3d(0, 0, 1, 0deg); }
+  100% { transform: rotate3d(0, 0, 1, 360deg); }
+}
