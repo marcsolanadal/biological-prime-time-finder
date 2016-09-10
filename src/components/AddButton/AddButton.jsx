@@ -1,18 +1,20 @@
 import React from 'react'
+import { Link } from 'react-router'
 
-import Button from '../Button/Button'
-import styles from './AddButton.css'
+import styles from './CircleButton.css'
 
-const AddButton = (props) => {
+const CircleButton = (props) => {
   return (
-    <Button to={props.to} icon={props.icon} style={styles.button} />
+    <Link to={`${props.to}`} className={styles.button}>
+      <span>{props.icon}</span>
+    </Link>
   )
 }
 
 const { string } = React.PropTypes
-AddButton.propTypes = {
+CircleButton.propTypes = {
   to: string.isRequired,
   icon: string
 }
 
-export default AddButton
+export default CircleButton

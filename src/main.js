@@ -2,9 +2,11 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, browserHistory } from 'react-router'
 
-import Header from './views/Header'
+import Header from './views/Header/Header'
 import About from './views/About'
 import NoMatch from './views/NoMatch'
+
+import styles from './main.css'
 
 const App = () => {
   return (
@@ -16,4 +18,4 @@ const App = () => {
   )
 }
 
-render(<App />, document.getElementById('app'))
+render(<App styles={styles} />, document.getElementById('app'))

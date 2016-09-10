@@ -9,18 +9,17 @@
 }
 
 .leftPanel nav {
+  font-size: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 30%;
+  width: 35em;
   background: lightgray;
-  min-width: 250px;
-  max-width: 400px;
 }
 
 .leftPanel nav > span {
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 1.875em;
+  padding-bottom: 1.875em;
   width: 100%;
   background-color: rgb(67, 69, 80);
   font-size: 2rem;
@@ -30,7 +29,6 @@
 
 .leftPanel .back {
   width: 100%;
-  min-width: 150px;
   background: #000;
   opacity: 0;
 }
