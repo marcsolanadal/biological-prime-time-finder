@@ -1,62 +1,19 @@
-.leftPanel {
-  display: flex;
+.menuPanel {
   position: absolute;
-  left: -100%;
+  width: 300px;
   height: 100%;
-  width: 100%;
-  transform: translateX(0%);
   z-index: 1;
-}
-
-.leftPanel nav {
-  font-size: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 35em;
   background: lightgray;
 }
 
-.leftPanel nav > span {
+/*
+.menuPanel span {
+  font-size: 2rem;
   padding-top: 1.875em;
   padding-bottom: 1.875em;
   width: 100%;
   background-color: rgb(67, 69, 80);
-  font-size: 2rem;
   color: lightgray;
   text-align: center;
 }
-
-.leftPanel .back {
-  width: 100%;
-  background: #000;
-  opacity: 0;
-}
-
-.fadeIn { animation: fade-in 30ms 300ms ease-in forwards; }
-.fadeOut { opacity: 0; }
-
-@keyframes fade-in {
-  from { opacity: 0 }
-  to { opacity: 0.3 }
-}
-
-.visible { transition: translateX(100%)}
-
-.visible { animation: slide-in 300ms linear forwards; }
-.hidden { animation: slide-out 300ms linear forwards; }
-
-@keyframes slide-in {
-  from { transform: translateX(0%) }
-  to {
-    transform: translateX(100%);
-    visibility: visible;
-  }
-}
-@keyframes slide-out {
-  from { transform: translateX(100%) }
-  to {
-    transform: translateX(0%);
-    visibility: hidden;
-  }
-}
+*/

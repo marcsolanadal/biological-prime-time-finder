@@ -2,14 +2,19 @@ import React from 'react'
 
 import styles from './MenuButton.css'
 
-const MenuButton = () => {
+const MenuButton = (props) => {
   return (
-    <div className={styles.icon}>
+    <div className={styles.icon} onClick={props.callback}>
       <div />
       <div />
       <div />
     </div>
   )
+}
+
+const { func } = React.PropTypes
+MenuButton.propTypes = {
+  callback: func.isRequired
 }
 
 export default MenuButton

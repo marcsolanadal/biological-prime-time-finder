@@ -1,25 +1,49 @@
-body {
-  width: 100%;
-  height: 100%;
-  background: slategray;
-  margin: 0;
-  padding: 0;
-}
-
 .header {
   width: 100%;
   height: 6.0625em;
   background-color: rgb(67, 69, 80);
 }
 
-.addButton {
-  position: absolute;
-  bottom: 20px;
-  right: 25px;
-}
-
 .spinner {
   position: absolute;
   top: 50%;
   left: 50%;
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0;
+  transition: opacity 300ms ease-in 50ms;
+}
+
+/* Animation classes for the overlay */
+.fadeIn {
+  opacity: 0.5;
+  z-index: 1;
+}
+.fadeOut {
+  opacity: 0;
+  z-index: -1;
+}
+
+/* React CSS Transition Group classes for the menu sliding */
+.enter {
+  transform: translateX(-300px);
+  transition: transform 300ms ease-in;
+}
+
+.enterActive {
+  transform: translate(0px);
+}
+
+.leave {
+  transform: translateX(0px);
+  transition: transform 300ms ease-out;
+}
+
+.leaveActive {
+  transform: translateX(-300px);
 }
