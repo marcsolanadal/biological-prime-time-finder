@@ -6,58 +6,56 @@ class Carousel extends React.Component {
   constructor () {
     super()
     this.state = {
-      swipeStart: {
-        x: 0,
-        y: 0
-      },
-      current: 0
+      swipeX: 0,
+      current: 0,
+      slideNumber: 0
     }
     this.getStartSwipePosition = this.getStartSwipePosition.bind(this)
     this.getEndSwipePosition = this.getEndSwipePosition.bind(this)
   }
-  changeCurrent (key) {
-    console.log(key)
-    this.state.current = key
-  }
-  getStartSwipePosition (e) {
-    this.state.swipeStart = {
-      x: e.pageX,
-      y: e.pageY
-    }
-  }
+  changeCurrent (key) { this.state.current = key }
+  getStartSwipePosition (e) { this.state.swipeX = e.pageX }
   getEndSwipePosition (e) {
-    const dX = e.pageX - this.state.swipeStart.x
-    const dY = e.pageY - this.state.swipeStart.y
+    let current = this.state.current
+    const dX = e.pageX - this.state.swipeX
 
-    console.log(`dx: ${dX}, dy: ${dY}`)
-
-    const text = (dX < 0) ? 'left swipe' : 'right swipe'
-    console.log(text)
-
-    //console.log(`position = (x: ${e.pageX}, y: ${e.pageY})`)
-    //console.log(`window width: ${window.innerWidth}`)
+    // Checking that the swipe covers at least 20% of the screen
+    if (Math.abs(dX) >= Math.abs(0.2 * window.innerWidth)) {
+      // Checking the direction of the swipe
+      if (dX > 0) {
+        // Next position
+        if (current >= 0 && current < this.state.slideNumber) {
+          this.setState({ current: current + 1 })
+        }
+      } else {
+        // Previous position
+        if (current > 0 && current <= this.state.slideNumber) {
+          this.setState({ current: current - 1 })
+        }
+      }
+      console.log(`current: ${current}, slideNumber: ${this.state.slideNumber}`)
+    }
   }
   render () {
     const slides = []
-    const dots = []
     React.Children.forEach(this.props.children, (slide, i) => {
-      const boundClick = this.changeCurrent.bind(this, i)
       slides.push(
-        <span className={style.slide} key={i}>
-          {slide.props.children}
-        </span>
-      )
-      dots.push(
-        <div className={style.dot} key={i} />
+        <span className={style.slide} key={i}>{slide}</span>
       )
     })
+    this.state.slideNumber = slides.length - 1
     return (
-      <div className={style.container}
-        onMouseDown={this.getStartSwipePosition}
-        onMouseUp={this.getEndSwipePosition}
-      >
+      <div className={style.container}>
+        <div
+          className={style.overlay}
+          onMouseDown={this.getStartSwipePosition}
+          onMouseUp={this.getEndSwipePosition}
+        />
         <div className={style.slider}>{slides}</div>
-        <div className={style.indicator}>{dots}</div>
+        <Indicator
+          number={slides.length}
+          current={this.state.current}
+          enabled />
       </div>
     )
   }
@@ -70,17 +68,29 @@ Carousel.propTypes = {
   handleSlides: func
 }
 
+import ClassNames from 'classnames'
+
 const Indicator = (props) => {
-  const dots = []
-  for (var i = 0; i < props.number; i++) {
-    dots.push(<div className={style.dot} />)
+  if (props.enabled) {
+    const dots = []
+    for (var i = 0; i < props.number; i++) {
+      let dotClass = ClassNames(style.dot, {
+        [style.green]: (props.current === i),
+        [style.gray]: (props.current !== i)
+      })
+      dots.push(<div className={dotClass} key={i} />)
+    }
+    return <div className={style.indicator}>{dots}</div>
+  } else {
+    return <div />
   }
-  return <div>{dots}</div>
 }
 
-const { int } = React.PropTypes
+const { number, bool } = React.PropTypes
 Indicator.propTypes = {
-  number: int
+  number: number,
+  current: number,
+  enabled: bool
 }
 
 export default Carousel
