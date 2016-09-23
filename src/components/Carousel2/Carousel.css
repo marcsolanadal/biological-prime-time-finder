@@ -3,6 +3,14 @@ body {
 }
 
 div {
+  background-color: darkslategray;
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
   user-select: none;
 }
 
@@ -14,19 +22,7 @@ div {
   z-index: 1;
   transition: 0ms linear;
   transform: translateX(0);
-  background-color: tomato;
 }
-
-/*
-.playAnimation { animation-play-state: running; }
-.pauseAnimation { animation-play-state: paused; }
-
-@keyframes leftSlideOut {
-  0% { transform: translate(0); }
-  to { transform: translateX(0); }
-}
-*/
-
 .leftSlideOut {
   transition: 200ms linear;
   transform: translateX(0);
@@ -41,7 +37,6 @@ div {
   width: 100%;
   height: 100%;
   z-index: 0;
-  background-color: green;
 }
 
 .rightSlide {
@@ -52,9 +47,7 @@ div {
   z-index: 1;
   transition: 0ms linear;
   transform: translateX(0);
-  background-color: skyblue;
 }
-
 .rightSlideOut {
   transition: 300ms ease-in;
   transform: translateX(0);
