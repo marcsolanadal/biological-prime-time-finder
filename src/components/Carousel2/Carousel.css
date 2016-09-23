@@ -2,6 +2,10 @@ body {
   overflow-x: hidden;
 }
 
+div {
+  user-select: none;
+}
+
 .leftSlide {
   position: absolute;
   left: -100%;
@@ -13,12 +17,22 @@ body {
   background-color: tomato;
 }
 
+/*
+.playAnimation { animation-play-state: running; }
+.pauseAnimation { animation-play-state: paused; }
+
+@keyframes leftSlideOut {
+  0% { transform: translate(0); }
+  to { transform: translateX(0); }
+}
+*/
+
 .leftSlideOut {
-  transition: 300ms ease-in;
+  transition: 200ms linear;
   transform: translateX(0);
 }
 .leftSlideIn {
-  transition: 300ms ease-in;
+  transition: 300ms linear;
   transform: translateX(100%);
 }
 
