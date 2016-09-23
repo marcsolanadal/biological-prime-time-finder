@@ -1,39 +1,72 @@
 import React from 'react'
 
+import Indicator from './Indicator'
+
 import style from './Carousel.css'
 
 class Carousel extends React.Component {
   constructor () {
     super()
     this.state = {
-      swipeX: 0,
-      current: 0,
-      slideNumber: 0
+      swipe: false,
+      swipeStartX: 0,
+      swipeEndX: 0,
+      sliderPosition: 0,
+      sliderLastPosition: 0,
+      sliderStepSize: 5,
+      currentSlide: 0,
+      numberSlides: 0,
+      sensitivity: 3,
+      counter: 0
     }
     this.getStartSwipePosition = this.getStartSwipePosition.bind(this)
     this.getEndSwipePosition = this.getEndSwipePosition.bind(this)
+    this.moveSlider = this.moveSlider.bind(this)
   }
-  changeCurrent (key) { this.state.current = key }
-  getStartSwipePosition (e) { this.state.swipeX = e.pageX }
+  getStartSwipePosition (e) {
+    this.setState({
+      swipe: true,
+      swipeStartX: e.pageX
+    })
+  }
+  moveSlider (e) {
+    // Detecting if we're currently on a swipe movement
+    if (this.state.swipe) {
+      // Only executing every x steps for optimization
+      if (this.state.counter === this.state.sensitivity) {
+        const sign = ((e.pageX - this.state.sliderLastPosition) > 0) ? 1 : -1
+        const dX = sign * this.state.sliderStepSize
+        this.setState({
+          sliderPosition: this.state.sliderPosition + dX,
+          sliderLastPosition: e.pageX,
+          counter: 0
+        })
+        // console.log(`pageX: ${e.pageX}, dX: ${dX}, sliderPosition: ${this.state.sliderPosition}`)
+      } else {
+        this.state.counter++
+      }
+    }
+  }
   getEndSwipePosition (e) {
-    let current = this.state.current
-    const dX = e.pageX - this.state.swipeX
+    let current = this.state.currentSlide
+    const dX = e.pageX - this.state.swipeStartX
+
+    this.setState({ swipe: false })
 
     // Checking that the swipe covers at least 20% of the screen
     if (Math.abs(dX) >= Math.abs(0.2 * window.innerWidth)) {
       // Checking the direction of the swipe
-      if (dX > 0) {
+      if (dX < 0) {
         // Next position
-        if (current >= 0 && current < this.state.slideNumber) {
-          this.setState({ current: current + 1 })
+        if (current >= 0 && current < this.state.numberSlides) {
+          this.setState({ currentSlide: current + 1 })
         }
       } else {
         // Previous position
-        if (current > 0 && current <= this.state.slideNumber) {
-          this.setState({ current: current - 1 })
+        if (current > 0 && current <= this.state.numberSlides) {
+          this.setState({ currentSlide: current - 1 })
         }
       }
-      console.log(`current: ${current}, slideNumber: ${this.state.slideNumber}`)
     }
   }
   render () {
@@ -43,18 +76,22 @@ class Carousel extends React.Component {
         <span className={style.slide} key={i}>{slide}</span>
       )
     })
-    this.state.slideNumber = slides.length - 1
+    var sliderStyle = {
+      transform: `translateX(${this.state.sliderPosition}px)`
+    }
+    this.state.numberSlides = slides.length - 1
     return (
       <div className={style.container}>
         <div
           className={style.overlay}
           onMouseDown={this.getStartSwipePosition}
+          onMouseMove={this.moveSlider}
           onMouseUp={this.getEndSwipePosition}
         />
-        <div className={style.slider}>{slides}</div>
+        <div className={style.slider} style={sliderStyle}>{slides}</div>
         <Indicator
           number={slides.length}
-          current={this.state.current}
+          current={this.state.currentSlide}
           enabled />
       </div>
     )
@@ -66,31 +103,6 @@ const { array, func } = React.PropTypes
 Carousel.propTypes = {
   children: array,
   handleSlides: func
-}
-
-import ClassNames from 'classnames'
-
-const Indicator = (props) => {
-  if (props.enabled) {
-    const dots = []
-    for (var i = 0; i < props.number; i++) {
-      let dotClass = ClassNames(style.dot, {
-        [style.green]: (props.current === i),
-        [style.gray]: (props.current !== i)
-      })
-      dots.push(<div className={dotClass} key={i} />)
-    }
-    return <div className={style.indicator}>{dots}</div>
-  } else {
-    return <div />
-  }
-}
-
-const { number, bool } = React.PropTypes
-Indicator.propTypes = {
-  number: number,
-  current: number,
-  enabled: bool
 }
 
 export default Carousel
