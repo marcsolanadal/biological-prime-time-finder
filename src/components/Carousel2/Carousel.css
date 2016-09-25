@@ -2,8 +2,7 @@ body {
   overflow-x: hidden;
 }
 
-div {
-  background-color: darkslategray;
+.overlay {
 }
 
 .overlay {
@@ -12,6 +11,7 @@ div {
   height: 100%;
   z-index: 999;
   user-select: none;
+  background-color: darkslategray;
 }
 
 .leftSlide {
@@ -56,3 +56,29 @@ div {
   transition: 300ms ease-in;
   transform: translateX(-100%);
 }
+
+.nextSlide {
+  transition: 300ms linear;
+  transform: translateX(100%);
+}
+.previousSlide {
+  transition: 300ms ease-in;
+  transform: translateX(-100%);
+}
+
+/*
+.nextSlide {
+  animation: 200ms nextSlide 1 ease-in;
+}
+.previousSlide {
+  animation: 200ms previousSlide 1 ease-in;
+}
+@keyframes previousSlide {
+  from { transform: translateX(-100%) }
+  to { transform: translateX(0)}
+}
+@keyframes nextSlide {
+  from { transform: translateX(0) }
+  to { transform: translateX(-100%)}
+}
+*/

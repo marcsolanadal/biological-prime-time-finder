@@ -4,20 +4,33 @@ import classNames from 'classnames'
 
 import styles from './Carousel.css'
 
+<Carousel
+  <Swipe />
+  <Slider pointer={} thereshold={} direction={} />
+  <Indicator current={} length={} />
+</Carousel>
+
 class Carousel extends React.Component {
   constructor () {
     super()
     this.state = {
-      items: [],
-      pointer: 0,
-      thereshold: 200,
-      isSwiping: false,
-      isTransitioning: false,
-      swipePositionStart: 0,
-      swipePositionEnd: 0,
-      swipeCounter: 0,
-      swipeDirection: 0,
-      optimizationCounter: 0
+      slider: {
+        pointer: 0,
+        thereshold: 200,
+        isCentering: false,
+        isTransitioning: false,
+        hasPrevious: false,
+        hasNext: false
+      },
+      swipe: {
+        isSwiping: false,
+        swipePositionStart: 0,
+        swipePositionEnd: 0,
+        swipeCounter: 0,
+        left: false,
+        right: false,
+        optimizationCounter: 0
+      }
     }
     this.swipeStart = this.swipeStart.bind(this)
     this.swipeMove = this.swipeMove.bind(this)
@@ -26,23 +39,47 @@ class Carousel extends React.Component {
   }
   swipeStart (e) {
     this.setState({
-      isSwiping: true,
-      isTransitioning: false,
-      swipePositionStart: e.pageX,
-      swipePositionEnd: e.pageX,
-      swipeDirection: 0,
-      swipeCounter: 0
+      slider: {
+        isCentering: false
+      },
+      swipe: {
+        isSwiping: true,
+        swipePositionStart: e.pageX,
+        swipePositionEnd: e.pageX,
+        left: false,
+        right: false,
+        swipeCounter: 0
+      }
     })
   }
   swipeMove (e) {
-    if (this.state.isSwiping) {
-      if (this.state.optimizationCounter > 3) {
+    const { isSwiping, optimizationCounter, swipePositionEnd, swipeCounter } = this.state.swipe
+    const { pointer, thereshold } = this.state.slider
+    let { hasPrevious, hasNext } = this.state.slider
+
+    if (isSwiping) {
+      if (optimizationCounter > 3) {
+        const left = (swipePositionEnd - e.pageX < 0)
+        const isTransitioning = (Math.abs(swipeCounter) > thereshold)
+
+        if (isTransitioning) {
+          hasPrevious = (pointer > 0)
+          hasNext = (pointer < this.props.children.length)
+        }
+
         this.setState({
-          isTransitioning: (Math.abs(this.state.swipeCounter) > this.state.thereshold),
-          swipePositionEnd: e.pageX,
-          swipeDirection: (this.state.swipePositionEnd - e.pageX < 0) ? 1 : -1,
-          swipeCounter: this.state.swipePositionEnd - this.state.swipePositionStart,
-          optimizationCounter: 0
+          slider: {
+            isTransitioning: isTransitioning,
+            hasPrevious: hasPrevious,
+            hasNext: hasNext
+          },
+          swipe: {
+            swipeCounter: this.state.swipePositionEnd - this.state.swipePositionStart,
+            swipePositionEnd: e.pageX,
+            left: left,
+            right: !left,
+            optimizationCounter: 0
+          }
         })
       } else {
         this.state.optimizationCounter++
@@ -51,57 +88,57 @@ class Carousel extends React.Component {
   }
   swipeEnd (e) {
     this.setState({
-      isSwiping: false,
-      swipeCounter: 0,
-      swipePositionStart: 0,
-      swipePositionEnd: 0
+      slider: {
+        isCentering: true
+      },
+      swipe: {
+        isSwiping: false,
+        swipeCounter: 0,
+        swipePositionStart: 0,
+        swipePositionEnd: 0
+      }
     })
   }
   handleSlideChange () {
-    const { pointer, swipeDirection, isTransitioning } = this.state
-    const hasPrevious = (pointer > 0)
-    const hasNext = (pointer < this.props.children.length)
-    const left = (swipeDirection > 0)
-    const right = !left
-
-    console.log(`hasPrev: ${hasPrevious}, hasNext: ${hasNext}, left: ${left}, right: ${right}`)
+    const { left, right } = this.state.swipe
+    const { pointer, isTransitioning, hasPrevious, hasNext } = this.state.slider
 
     if (isTransitioning && right && hasNext) {
       this.setState({
-        isTransitioning: false,
-        pointer: pointer + 1
+        slider: {
+          pointer: pointer + 1,
+          isCentering: false,
+          isTransitioning: false
+        }
       })
     }
     if (isTransitioning && left && hasPrevious) {
       this.setState({
-        isTransitioning: false,
-        pointer: pointer - 1
+        slider: {
+          pointer: pointer - 1,
+          isCentering: false,
+          isTransitioning: false
+        }
       })
     }
 
-    console.log(`pointer: ${this.state.pointer}`)
+    console.log(`pointer: ${pointer}`)
   }
   render () {
-    const { pointer, swipeCounter, isSwiping, isTransitioning, swipeDirection } = this.state
-
-    const hasPrevious = (pointer > 0)
-    const hasNext = (pointer < this.props.children.length)
-    const left = (swipeDirection > 0)
-    const right = !left
+    const { pointer, isCentering, isTransitioning, hasPrevious, hasNext } = this.state.slider
+    const { isSwiping, swipeCounter, left, right } = this.state.swipe
 
     const slidePosition = (!isTransitioning)
       ? { transform: `translateX(${swipeCounter}px)` }
       : {}
 
-    // TODO: Apply resistence to the drag in case there is no next/prev element
-
     let leftClassNames = {
-      //[styles.leftSlideOut]: left && !isSwiping && !isTransitioning,
+      [styles.leftSlideOut]: left && isCentering && !isSwiping,
       [styles.leftSlideIn]: left && isTransitioning && hasPrevious
     }
 
     let rightClassNames = {
-      //[styles.rightSlideOut]: right && !isSwiping && !isTransitioning,
+      [styles.rightSlideOut]: right && isCentering && !isSwiping,
       [styles.rightSlideIn]: right && isTransitioning && hasNext
     }
 
@@ -118,15 +155,15 @@ class Carousel extends React.Component {
         onMouseUp={this.swipeEnd}>
 
         <div style={slidePosition} className={leftSlideStyle} onTransitionEnd={this.handleSlideChange}>
-          {this.props.children[this.state.pointer - 1]}
+          {this.props.children[pointer - 1]}
         </div>
 
         <div style={slidePosition} className={centerSlideStyle}>
-          {this.props.children[this.state.pointer]}
+          {this.props.children[pointer]}
         </div>
 
         <div style={slidePosition} className={rightSlideStyle} onTransitionEnd={this.handleSlideChange}>
-          {this.props.children[this.state.pointer + 1]}
+          {this.props.children[pointer + 1]}
         </div>
 
       </div>
