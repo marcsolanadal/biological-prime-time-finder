@@ -2,6 +2,8 @@ import React from 'react'
 // import classNames from 'classnames'
 
 import Swipe from './Swipe.jsx'
+import Slider from './Slider.jsx'
+
 // import styles from './Carousel.css'
 
 class Carousel extends React.Component {
@@ -9,43 +11,41 @@ class Carousel extends React.Component {
     super()
     this.state = {
       pointer: 0,
-      isCentering: false,
-      isTransitioning: false,
       hasPrevious: false,
       hasNext: false,
-      positionX: 0
+      sliderPosition: 0,
+      animationDirection: false,
+      animationTrigger: false
     }
     this.getSliderCommand = this.getSliderCommand.bind(this)
+    this.getPosition = this.getPosition.bind(this)
+  }
+  getPosition (position) {
+    this.setState({ sliderPosition: position })
   }
   getSliderCommand (data) {
-    console.log(data.increment)
-    this.setState({ positionX: data.increment })
+    this.setState({ animationDirection: data.left, animationTrigger: data.trigger })
+    console.log(data)
   }
   render () {
+    const sliderStyle = {
+      transform: `translateX(${this.state.sliderPosition}px)`
+    }
     return (
       <div>
-        <Swipe thereshold={300} getCommand={this.getSliderCommand} />
-        <RemoteSquare positionX={this.state.positionX} />
+        <Swipe
+          thereshold={300}
+          getPosition={this.getPosition}
+          getCommand={this.getSliderCommand}
+        />
+        <Slider
+          style={sliderStyle}
+          animationDirection={this.state.animationDirection}
+          animationTrigger={this.state.animationTrigger}
+        />
       </div>
     )
   }
-}
-
-const RemoteSquare = (props) => {
-  const squareStyle = {
-    backgroundColor: 'red',
-    transform: `translateX(${props.positionX}px)`,
-    height: '100px',
-    width: '100px'
-  }
-  return (
-    <div className='square' style={squareStyle} />
-  )
-}
-
-const { number } = React.PropTypes
-RemoteSquare.propTypes = {
-  positionX: number
 }
 
 const { array } = React.PropTypes

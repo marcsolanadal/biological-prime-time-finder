@@ -18,6 +18,8 @@ class Swipe extends React.Component {
     this.setState({
       isSwiping: true,
       start: e.pageX,
+      end: e.pageX,
+      increment: 0,
       counter: 0
     })
   }
@@ -26,23 +28,22 @@ class Swipe extends React.Component {
     const step = this.props.optimizationFactor || 5
 
     if (isSwiping) {
-      if (counter > step) {
+      if (counter === step) {
+        const increment = e.pageX - start
         this.setState({
-          increment: e.pageX - start,
+          increment: increment,
           end: e.pageX,
           counter: 0
         })
+        this.props.getPosition(increment)
       } else {
-        // FIXME: With immutable state this cannot be done
-        this.state.counter++
+        this.setState({ counter: counter + 1 })
       }
     }
   }
   swipeEnd (e) {
     const { end, increment } = this.state
     const thereshold = this.props.thereshold
-
-    //console.log(`end: ${end}, e.pageX: ${e.pageX}`)
 
     const command = {
       left: (end - e.pageX < 0),
@@ -51,6 +52,8 @@ class Swipe extends React.Component {
     }
 
     this.props.getCommand(command)
+
+    this.setState({ isSwiping: false })
   }
   render () {
     const overlayStyles = {
@@ -75,6 +78,7 @@ const { number, func } = React.PropTypes
 Swipe.propTypes = {
   thereshold: number,
   optimizationFactor: number,
+  getPosition: func,
   getCommand: func
 }
 

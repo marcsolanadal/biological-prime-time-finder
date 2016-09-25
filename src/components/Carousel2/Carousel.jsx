@@ -4,17 +4,6 @@ import classNames from 'classnames'
 
 import styles from './Carousel.css'
 
-/*
-<Carousel
-  <Swipe thereshold={200} getCommand={this.getCommand.bind(this)} />
-  <Slider command={} />
-  <div>
-    <Indicator current={} length={} visible />
-    <Button visible={!visible} />
-  </div>
-</Carousel>
-*/
-
 class Carousel extends React.Component {
   constructor () {
     super()
