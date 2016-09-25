@@ -4,11 +4,16 @@ import classNames from 'classnames'
 
 import styles from './Carousel.css'
 
+/*
 <Carousel
-  <Swipe />
-  <Slider pointer={} thereshold={} direction={} />
-  <Indicator current={} length={} />
+  <Swipe thereshold={200} getCommand={this.getCommand.bind(this)} />
+  <Slider command={} />
+  <div>
+    <Indicator current={} length={} visible />
+    <Button visible={!visible} />
+  </div>
 </Carousel>
+*/
 
 class Carousel extends React.Component {
   constructor () {
@@ -133,12 +138,12 @@ class Carousel extends React.Component {
       : {}
 
     let leftClassNames = {
-      [styles.leftSlideOut]: left && isCentering && !isSwiping,
+      [styles.repositionSlide]: left && isCentering && !isSwiping,
       [styles.leftSlideIn]: left && isTransitioning && hasPrevious
     }
 
     let rightClassNames = {
-      [styles.rightSlideOut]: right && isCentering && !isSwiping,
+      [styles.repositionSlide]: right && isCentering && !isSwiping,
       [styles.rightSlideIn]: right && isTransitioning && hasNext
     }
 

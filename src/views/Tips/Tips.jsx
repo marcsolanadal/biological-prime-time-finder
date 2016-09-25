@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Carousel from '../../components/Carousel2/Carousel'
+import Carousel from '../../components/Carousel3/Carousel'
 
 const Tips = () => (
   <Carousel>
