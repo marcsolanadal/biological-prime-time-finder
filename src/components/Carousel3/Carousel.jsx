@@ -17,6 +17,7 @@ class Carousel extends React.Component {
       prev: false,
       thereshold: 300,
       isSwiping: false,
+      isCentering: false,
       animationDirection: false,
       animationTransition: false
     }
@@ -42,6 +43,7 @@ class Carousel extends React.Component {
 
     this.setState({
       isSwiping: false,
+      isCentering: true,
       animationDirection: left,
       animationTransition: trigger,
       hasNext: hasNext,
@@ -49,32 +51,28 @@ class Carousel extends React.Component {
       next: nextSwipe && hasNext,
       prev: prevSwipe && hasPrevious
     })
-
-    debugger
   }
   handlePointer () {
     const { pointer, hasNext, hasPrevious, next, prev, animationTransition } = this.state
-
-    debugger
 
     if (animationTransition && hasNext && next) {
       console.log('incrementing pointer')
       this.setState({
         pointer: pointer + 1,
-        next: false
+        next: false,
+        isCentering: false
       })
-    }
-
-    if (animationTransition && hasPrevious && prev) {
+    } else if (animationTransition && hasPrevious && prev) {
       console.log('decrementing pointer')
       this.setState({
         pointer: pointer - 1,
-        prev: false
+        prev: false,
+        isCentering: false
       })
     }
   }
   render () {
-    const { isSwiping, pointer, thereshold, sliderPosition, next, prev } = this.state
+    const { isSwiping, isCentering, pointer, thereshold, sliderPosition, next, prev } = this.state
     return (
       <div>
         <Swipe
@@ -85,6 +83,7 @@ class Carousel extends React.Component {
         <Slider
           pointer={pointer}
           isSwiping={isSwiping}
+          isCentering={isCentering}
           position={sliderPosition}
           next={next}
           prev={prev}

@@ -4,24 +4,16 @@ import classNames from 'classnames'
 import styles from './Slider.css'
 
 const Slider = (props) => {
-  const { pointer, next, prev, position, isSwiping } = props
+  const { pointer, next, prev, position, isSwiping, isCentering } = props
 
   let inlinePosition = (isSwiping)
     ? { transform: `translateX(${position}px)` }
     : {}
 
-  const nextSlide = next && !isSwiping
-  const previousSlide = prev && !isSwiping
-  const repo1 = (!next && !prev) && !isSwiping
-  const repo2 = (next && prev) && !isSwiping
-  const repo3 = ((!next && !prev) || (next && prev)) && !isSwiping
-
-  if (!isSwiping) debugger
-
   let containerStyles = classNames(styles.container, {
     [styles.nextSlide]: next && !isSwiping,
-    [styles.previousSlide]: prev && !isSwiping
-    //[styles.repositionSlide]: ((!next && !prev) || (next && prev)) && !isSwiping
+    [styles.previousSlide]: prev && !isSwiping,
+    [styles.repositionSlide]: ((!next && !prev) || (next && prev)) && !isSwiping && isCentering
   })
 
   return (
@@ -41,13 +33,15 @@ const Slider = (props) => {
   )
 }
 
-const { bool, number, array } = React.PropTypes
+const { bool, number, array, func } = React.PropTypes
 Slider.propTypes = {
   isSwiping: bool,
+  isCentering: bool,
   pointer: number,
   position: number,
   prev: bool,
   next: bool,
+  onTransitionEnd: func,
   children: array
 }
 
