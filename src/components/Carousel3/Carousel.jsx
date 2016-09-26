@@ -1,5 +1,4 @@
 import React from 'react'
-// import classNames from 'classnames'
 
 import Swipe from './Swipe.jsx'
 import Slider from './Slider.jsx'
@@ -11,38 +10,88 @@ class Carousel extends React.Component {
     super()
     this.state = {
       pointer: 0,
-      hasPrevious: false,
-      hasNext: false,
       sliderPosition: 0,
+      hasNext: false,
+      hasPrevious: false,
+      next: false,
+      prev: false,
+      thereshold: 300,
+      isSwiping: false,
       animationDirection: false,
-      animationTrigger: false
+      animationTransition: false
     }
     this.getSliderCommand = this.getSliderCommand.bind(this)
     this.getPosition = this.getPosition.bind(this)
+    this.handlePointer = this.handlePointer.bind(this)
   }
   getPosition (position) {
-    this.setState({ sliderPosition: position })
+    this.setState({
+      isSwiping: true,
+      sliderPosition: position
+    })
   }
   getSliderCommand (data) {
-    this.setState({ animationDirection: data.left, animationTrigger: data.trigger })
-    console.log(data)
+    const { left, trigger } = data
+    const { pointer } = this.state
+
+    const nextSwipe = left && trigger
+    const prevSwipe = !left && trigger
+
+    const hasPrevious = (pointer > 0)
+    const hasNext = (pointer < this.props.children.length - 1)
+
+    this.setState({
+      isSwiping: false,
+      animationDirection: left,
+      animationTransition: trigger,
+      hasNext: hasNext,
+      hasPrevious: hasPrevious,
+      next: nextSwipe && hasNext,
+      prev: prevSwipe && hasPrevious
+    })
+
+    debugger
+  }
+  handlePointer () {
+    const { pointer, hasNext, hasPrevious, next, prev, animationTransition } = this.state
+
+    debugger
+
+    if (animationTransition && hasNext && next) {
+      console.log('incrementing pointer')
+      this.setState({
+        pointer: pointer + 1,
+        next: false
+      })
+    }
+
+    if (animationTransition && hasPrevious && prev) {
+      console.log('decrementing pointer')
+      this.setState({
+        pointer: pointer - 1,
+        prev: false
+      })
+    }
   }
   render () {
-    const sliderStyle = {
-      transform: `translateX(${this.state.sliderPosition}px)`
-    }
+    const { isSwiping, pointer, thereshold, sliderPosition, next, prev } = this.state
     return (
       <div>
         <Swipe
-          thereshold={300}
+          thereshold={thereshold}
           getPosition={this.getPosition}
           getCommand={this.getSliderCommand}
         />
         <Slider
-          style={sliderStyle}
-          animationDirection={this.state.animationDirection}
-          animationTrigger={this.state.animationTrigger}
-        />
+          pointer={pointer}
+          isSwiping={isSwiping}
+          position={sliderPosition}
+          next={next}
+          prev={prev}
+          onTransitionEnd={this.handlePointer}
+        >
+          {this.props.children}
+        </Slider>
       </div>
     )
   }
