@@ -2,6 +2,7 @@ import React from 'react'
 import ClassNames from 'classnames'
 
 import styles from './Indicator.css'
+// import styles from './Carousel.scss'
 
 const Indicator = (props) => {
   const { current, number, enabled } = props

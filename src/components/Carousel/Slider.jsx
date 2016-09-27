@@ -2,6 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 
 import styles from './Slider.css'
+// import styles from './Carousel.scss'
 
 const Slider = (props) => {
   const { pointer, next, prev, position, isSwiping, isCentering } = props

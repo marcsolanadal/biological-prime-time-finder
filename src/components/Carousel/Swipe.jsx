@@ -1,6 +1,7 @@
 import React from 'react'
 
 import styles from './Swipe.css'
+// import styles from './Carousel.scss'
 
 class Swipe extends React.Component {
   constructor () {
@@ -55,6 +56,9 @@ class Swipe extends React.Component {
         onMouseDown={this.swipeStart}
         onMouseMove={this.swipeMove}
         onMouseUp={this.swipeEnd}
+        onTouchStart={this.swipeStart}
+        onTouchMove={this.swipeMove}
+        onTouchEnd={this.swipeEnd}
       />
     )
   }
