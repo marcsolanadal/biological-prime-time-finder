@@ -9,8 +9,13 @@ const Indicator = (props) => {
   if (enabled) {
     const dots = []
     for (var i = 0; i < number; i++) {
+      // FIXME: It must be a better way to implement this
       let dotStyles = ClassNames(styles.dot, {
-        [styles.current]: current === i
+        [styles.red]: current === i && i === 0,
+        [styles.orange]: current === i && i === 1,
+        [styles.yellow]: current === i && i === 2,
+        [styles.green]: current === i && i === 3,
+        [styles.gray]: current !== i
       })
       dots.push(<div className={dotStyles} key={i} />)
     }

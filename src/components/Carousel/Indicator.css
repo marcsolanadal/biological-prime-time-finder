@@ -3,23 +3,24 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
-  width: 100px;
-  height: 20px;
-  background: black;
+  height: 12px;
+  margin-bottom: 40px;
 }
 
 .dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  background-color: white;
+  width: 12px;
+  height: 12px;
+  margin-left: 10px;
+  border-radius: 6px;
+  background-color: #A5A7A6;
+}
+.dot:first-child {
+  margin-left: 0;
 }
 
-.current { background-color: yellow; }
-
-.green { background-color: green; }
-.yellow { background-color: violet; }
-.red { background-color: red; }
-.blue { background-color: blue; }
-.gray { background-color: white; }
+.gray { background-color: #A5A7A6; }
+.gray { background-color: rgba(165,166,165,0.65); }
+.red { background-color: #C4727B; }
+.orange { background-color: #DA9258; }
+.yellow { background-color: #DED447; }
+.green { background-color: #4BA861; }

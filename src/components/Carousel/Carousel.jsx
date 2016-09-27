@@ -16,7 +16,6 @@ class Carousel extends React.Component {
       hasPrevious: false,
       next: false,
       prev: false,
-      thereshold: 300,
       isSwiping: false,
       isCentering: false,
       animationDirection: false,
@@ -70,11 +69,12 @@ class Carousel extends React.Component {
     }
   }
   render () {
-    const { isSwiping, isCentering, pointer, thereshold, sliderPosition, next, prev } = this.state
+    const { isSwiping, isCentering, pointer, sliderPosition, next, prev } = this.state
+    const { thereshold } = this.props
     return (
       <div className={styles.carousel}>
         <Swipe
-          thereshold={thereshold}
+          thereshold={0.25 * thereshold} // 25% of the total width to trigger next
           getPosition={this.getPosition}
           getCommand={this.getSliderCommand}
         />
@@ -95,9 +95,10 @@ class Carousel extends React.Component {
   }
 }
 
-const { array } = React.PropTypes
+const { array, number } = React.PropTypes
 Carousel.propTypes = {
-  children: array
+  children: array,
+  thereshold: number
 }
 
 export default Carousel

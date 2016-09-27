@@ -10,7 +10,7 @@ const Slider = (props) => {
     ? { transform: `translateX(${position}px)` }
     : {}
 
-  let containerStyles = classNames({
+  let sliderStyles = classNames(styles.slider, {
     [styles.nextSlide]: next && !isSwiping,
     [styles.previousSlide]: prev && !isSwiping,
     [styles.repositionSlide]: ((!next && !prev) || (next && prev)) && !isSwiping && isCentering
@@ -19,7 +19,7 @@ const Slider = (props) => {
   return (
     <div
       style={inlinePosition}
-      className={containerStyles}
+      className={sliderStyles}
       onTransitionEnd={props.onTransitionEnd}
     >
 

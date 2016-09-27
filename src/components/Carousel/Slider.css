@@ -1,25 +1,22 @@
 
-.container {
-  position: absolute;
-  width: 100%;
+.slider {
+  display: flex;
   height: 100%;
+  width: 100%;
+  margin-top: 110px;
 }
 
-.leftSlide {
+.slider > div {
   position: absolute;
-  left: -100%;
-  background-color: red;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.centerSlide {
-  position: absolute;
-  left: 0;
-  background-color: blue;
-}
-.rightSlide {
-  position: absolute;
-  left: 100%;
-  background-color: green;
-}
+
+.leftSlide { left: -100%; }
+.centerSlide { left: 0; }
+.rightSlide { left: 100%; }
 
 .previousSlide {
   transition: 300ms linear;
