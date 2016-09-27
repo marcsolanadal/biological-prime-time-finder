@@ -4,16 +4,13 @@ import ClassNames from 'classnames'
 import styles from './Indicator.css'
 
 const Indicator = (props) => {
-  if (props.enabled) {
+  const { current, number, enabled } = props
+
+  if (enabled) {
     const dots = []
-    for (var i = 0; i < props.number; i++) {
+    for (var i = 0; i < number; i++) {
       let dotStyles = ClassNames(styles.dot, {
-        // FIXME: Find a better way to do this color assignation
-        [styles.green]: (props.current === 0),
-        [styles.yellow]: (props.current === 1),
-        [styles.red]: (props.current === 2),
-        [styles.blue]: (props.current === 3),
-        [styles.gray]: (props.current !== i)
+        [styles.current]: current === i
       })
       dots.push(<div className={dotStyles} key={i} />)
     }

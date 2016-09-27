@@ -6,18 +6,20 @@
   justify-content: space-around;
   width: 100px;
   height: 20px;
-  background: gray;
+  background: black;
 }
 
 .dot {
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  background-color: red;
+  background-color: white;
 }
+
+.current { background-color: yellow; }
 
 .green { background-color: green; }
 .yellow { background-color: violet; }
 .red { background-color: red; }
 .blue { background-color: blue; }
-.gray { background-color: lightgray; }
+.gray { background-color: white; }
