@@ -18,8 +18,10 @@
   margin-left: 0;
 }
 
-.gray { background-color: #A5A7A6; }
-.gray { background-color: rgba(165,166,165,0.65); }
+.gray {
+  background-color: #A5A7A6;
+  background-color: rgba(165,166,165,0.65);
+}
 .red { background-color: #C4727B; }
 .orange { background-color: #DA9258; }
 .yellow { background-color: #DED447; }

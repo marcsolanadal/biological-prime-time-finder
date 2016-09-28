@@ -6,7 +6,22 @@
   margin-top: 110px;
 }
 
-.slider > div {
+.previous {
+  transition: 300ms linear;
+  transform: translateX(100%);
+}
+
+.next {
+  transition: 300ms linear;
+  transform: translateX(-100%);
+}
+
+.reposition {
+  transition: 300ms linear;
+  transform: translateX(0);
+}
+
+.slide {
   position: absolute;
   width: 100%;
   display: flex;
@@ -14,19 +29,17 @@
   align-items: center;
 }
 
-.leftSlide { left: -100%; }
-.centerSlide { left: 0; }
-.rightSlide { left: 100%; }
+.left {
+  composes: slide;
+  left: -100%;
+}
 
-.previousSlide {
-  transition: 300ms linear;
-  transform: translateX(100%);
+.center {
+  composes: slide;
+  left: 0;
 }
-.nextSlide {
-  transition: 300ms linear;
-  transform: translateX(-100%);
-}
-.repositionSlide {
-  transition: 300ms linear;
-  transform: translateX(0);
+
+.right {
+  composes: slide;
+  left: 100%;
 }

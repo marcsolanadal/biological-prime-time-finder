@@ -25,12 +25,9 @@ module.exports = {
         loader: 'css-loader',
         query: {
           modules: true,
+          importLoaders: 1,
           localIdentName: '[name]__[local]___[hash:base64:5]'
         }
-      },
-      {
-        test: /\.scss$/,
-        loaders: ['style', 'css', 'sass']
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,

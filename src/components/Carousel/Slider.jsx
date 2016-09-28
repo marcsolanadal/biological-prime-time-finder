@@ -1,8 +1,7 @@
 import React from 'react'
-import classNames from 'classnames'
+import ClassNames from 'classnames'
 
 import styles from './Slider.css'
-// import styles from './Carousel.scss'
 
 const Slider = (props) => {
   const { pointer, next, prev, position, isSwiping, isCentering } = props
@@ -11,10 +10,10 @@ const Slider = (props) => {
     ? { transform: `translateX(${position}px)` }
     : {}
 
-  let sliderStyles = classNames(styles.slider, {
-    [styles.nextSlide]: next && !isSwiping,
-    [styles.previousSlide]: prev && !isSwiping,
-    [styles.repositionSlide]: ((!next && !prev) || (next && prev)) && !isSwiping && isCentering
+  let sliderStyles = ClassNames(styles.slider, {
+    [styles.next]: next && !isSwiping,
+    [styles.previous]: prev && !isSwiping,
+    [styles.reposition]: ((!next && !prev) || (next && prev)) && !isSwiping && isCentering
   })
 
   return (
@@ -24,13 +23,13 @@ const Slider = (props) => {
       onTransitionEnd={props.onTransitionEnd}
     >
 
-      <div className={styles.leftSlide}>
+      <div className={styles.left}>
         {props.children[pointer - 1]}
       </div>
-      <div className={styles.centerSlide}>
+      <div className={styles.center}>
         {props.children[pointer]}
       </div>
-      <div className={styles.rightSlide}>
+      <div className={styles.right}>
         {props.children[pointer + 1]}
       </div>
 
