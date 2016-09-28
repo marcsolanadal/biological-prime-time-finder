@@ -1,35 +1,38 @@
 import React from 'react'
-import ClassNames from 'classnames'
+import CSSModules from 'react-css-modules'
 
 import styles from './Slider.css'
 
 const Slider = (props) => {
   const { pointer, next, prev, position, isSwiping, isCentering } = props
 
-  let inlinePosition = (isSwiping)
-    ? { transform: `translateX(${position}px)` }
-    : {}
+  let inlineStyle = {}
+  let sliderClass = 'slider' // IMPORTANT: default value
 
-  let sliderStyles = ClassNames(styles.slider, {
-    [styles.next]: next && !isSwiping,
-    [styles.previous]: prev && !isSwiping,
-    [styles.reposition]: ((!next && !prev) || (next && prev)) && !isSwiping && isCentering
-  })
+  if (!isSwiping) {
+    if (next) { sliderClass = 'next' }
+    if (prev) { sliderClass = 'previous' }
+    if (((!next && !prev) || (next && prev)) && isCentering) {
+      sliderClass = 'reposition'
+    }
+  } else {
+    inlineStyle = { transform: `translateX(${position}px)` }
+  }
 
   return (
     <div
-      style={inlinePosition}
-      className={sliderStyles}
+      style={inlineStyle}
+      styleName={sliderClass}
       onTransitionEnd={props.onTransitionEnd}
     >
 
-      <div className={styles.left}>
+      <div styleName='left'>
         {props.children[pointer - 1]}
       </div>
-      <div className={styles.center}>
+      <div styleName='center'>
         {props.children[pointer]}
       </div>
-      <div className={styles.right}>
+      <div styleName='right'>
         {props.children[pointer + 1]}
       </div>
 
@@ -49,4 +52,4 @@ Slider.propTypes = {
   children: array
 }
 
-export default Slider
+export default CSSModules(Slider, styles)

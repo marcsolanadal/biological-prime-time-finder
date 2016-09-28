@@ -1,7 +1,12 @@
 
-.primary-darkblue { background-color: #010fff; }
-.gray { background-color: rgba(165, 166, 165, 0.65); }
+/* background color */
+.slategray { background-color: #2a5565; }
+
+/* primary colors */
 .red { background-color: #c4727b; }
 .orange { background-color: #da9258; }
 .yellow { background-color: #ded447; }
 .green { background-color: #4ba861; }
+
+/* grays */
+.gray { background-color: rgba(165, 166, 165, 0.65); }

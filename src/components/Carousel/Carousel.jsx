@@ -1,4 +1,5 @@
 import React from 'react'
+import CSSModules from 'react-css-modules'
 
 import Swipe from './Swipe.jsx'
 import Slider from './Slider.jsx'
@@ -72,7 +73,7 @@ class Carousel extends React.Component {
     const { isSwiping, isCentering, pointer, sliderPosition, next, prev } = this.state
     const { thereshold } = this.props
     return (
-      <div className={styles.carousel}>
+      <div styleName='carousel'>
         <Swipe
           thereshold={0.25 * thereshold} // 25% of the total width to trigger next
           getPosition={this.getPosition}
@@ -89,7 +90,11 @@ class Carousel extends React.Component {
         >
           {this.props.children}
         </Slider>
-        <Indicator className={styles.indicator} current={pointer} number={this.props.children.length} enabled />
+        <Indicator
+          current={pointer}
+          number={this.props.children.length}
+          enabled
+        />
       </div>
     )
   }
@@ -101,4 +106,4 @@ Carousel.propTypes = {
   thereshold: number
 }
 
-export default Carousel
+export default CSSModules(Carousel, styles)

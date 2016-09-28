@@ -7,17 +7,20 @@
 }
 
 .previous {
-  transition: 300ms linear;
+  composes: slider;
+  composes: linear from '../../transitions.css';
   transform: translateX(100%);
 }
 
 .next {
-  transition: 300ms linear;
+  composes: slider;
+  composes: linear from '../../transitions.css';
   transform: translateX(-100%);
 }
 
 .reposition {
-  transition: 300ms linear;
+  composes: slider;
+  composes: linear from '../../transitions.css';
   transform: translateX(0);
 }
 

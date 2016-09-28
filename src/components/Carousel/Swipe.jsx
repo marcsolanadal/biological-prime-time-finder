@@ -1,7 +1,7 @@
 import React from 'react'
+import CSSModules from 'react-css-modules'
 
 import styles from './Swipe.css'
-// import styles from './Carousel.scss'
 
 class Swipe extends React.Component {
   constructor () {
@@ -52,7 +52,7 @@ class Swipe extends React.Component {
   render () {
     return (
       <div
-        className={styles.overlay}
+        styleName='overlay'
         onMouseDown={this.swipeStart}
         onMouseMove={this.swipeMove}
         onMouseUp={this.swipeEnd}
@@ -71,4 +71,4 @@ Swipe.propTypes = {
   getCommand: func
 }
 
-export default Swipe
+export default CSSModules(Swipe, styles)
