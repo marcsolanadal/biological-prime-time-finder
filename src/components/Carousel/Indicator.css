@@ -12,17 +12,31 @@
   height: 12px;
   margin-left: 10px;
   border-radius: 6px;
-  background-color: #A5A7A6;
-}
-.dot:first-child {
-  margin-left: 0;
 }
 
-.gray {
-  background-color: #A5A7A6;
-  background-color: rgba(165,166,165,0.65);
+.dot:first-child { margin-left: 0; }
+
+.gray-dot {
+  composes: gray from '../../colors.css';
+  composes: dot;
 }
-.red { background-color: #C4727B; }
-.orange { background-color: #DA9258; }
-.yellow { background-color: #DED447; }
-.green { background-color: #4BA861; }
+
+.red-dot {
+  composes: red from '../../colors.css';
+  composes: dot;
+}
+
+.orange-dot {
+  composes: orange from '../../colors.css';
+  composes: dot;
+}
+
+.yellow-dot {
+  composes: yellow from '../../colors.css';
+  composes: dot;
+}
+
+.green-dot {
+  composes: green from '../../colors.css';
+  composes: dot;
+}

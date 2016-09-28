@@ -1,8 +1,7 @@
 import React from 'react'
-import ClassNames from 'classnames'
+import CSSModules from 'react-css-modules'
 
 import styles from './Indicator.css'
-// import styles from './Carousel.scss'
 
 const Indicator = (props) => {
   const { current, number, enabled } = props
@@ -10,17 +9,11 @@ const Indicator = (props) => {
   if (enabled) {
     const dots = []
     for (var i = 0; i < number; i++) {
-      // FIXME: It must be a better way to implement this
-      let dotStyles = ClassNames(styles.dot, {
-        [styles.red]: current === i && i === 0,
-        [styles.orange]: current === i && i === 1,
-        [styles.yellow]: current === i && i === 2,
-        [styles.green]: current === i && i === 3,
-        [styles.gray]: current !== i
-      })
-      dots.push(<div className={dotStyles} key={i} />)
+      const classList = ['red-dot', 'orange-dot', 'yellow-dot', 'green-dot']
+      const currentClass = (current === i) ? classList[i] : 'gray-dot'
+      dots.push(<div styleName={currentClass} key={i} />)
     }
-    return <div className={styles.indicator}>{dots}</div>
+    return <div styleName='indicator'>{dots}</div>
   } else {
     return <div />
   }
@@ -33,4 +26,4 @@ Indicator.propTypes = {
   enabled: bool
 }
 
-export default Indicator
+export default CSSModules(Indicator, styles)
