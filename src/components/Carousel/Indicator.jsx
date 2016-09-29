@@ -1,7 +1,7 @@
 import React from 'react'
 import CSSModules from 'react-css-modules'
 
-import styles from './Indicator.css'
+import styles from './Indicator.scss'
 
 const Indicator = (props) => {
   const { current, number, enabled } = props

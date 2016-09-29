@@ -1,7 +1,7 @@
 import React from 'react'
 import CSSModules from 'react-css-modules'
 
-import styles from './Swipe.css'
+import styles from './Swipe.scss'
 
 class Swipe extends React.Component {
   constructor () {

@@ -1,3 +1,4 @@
+@import '../../colors.scss';
 
 .indicator {
   display: flex;
@@ -17,26 +18,26 @@
 .dot:first-child { margin-left: 0; }
 
 .gray-dot {
-  composes: gray from '../../colors.css';
   composes: dot;
+  background-color: $gray;
 }
 
 .red-dot {
-  composes: red from '../../colors.css';
   composes: dot;
+  background-color: $red;
 }
 
 .orange-dot {
-  composes: orange from '../../colors.css';
   composes: dot;
+  background-color: $orange;
 }
 
 .yellow-dot {
-  composes: yellow from '../../colors.css';
   composes: dot;
+  background-color: $yellow;
 }
 
 .green-dot {
-  composes: green from '../../colors.css';
   composes: dot;
+  background-color: $green;
 }

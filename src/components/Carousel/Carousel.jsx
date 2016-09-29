@@ -5,7 +5,7 @@ import Swipe from './Swipe.jsx'
 import Slider from './Slider.jsx'
 import Indicator from './Indicator.jsx'
 
-import styles from './Carousel.css'
+import styles from './Carousel.scss'
 
 class Carousel extends React.Component {
   constructor () {

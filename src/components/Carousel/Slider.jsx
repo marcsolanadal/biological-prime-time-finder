@@ -1,7 +1,7 @@
 import React from 'react'
 import CSSModules from 'react-css-modules'
 
-import styles from './Slider.css'
+import styles from './Slider.scss'
 
 const Slider = (props) => {
   const { pointer, next, prev, position, isSwiping, isCentering } = props

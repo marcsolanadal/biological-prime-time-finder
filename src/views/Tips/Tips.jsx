@@ -3,13 +3,17 @@ import React from 'react'
 import Carousel from '../../components/Carousel/Carousel.jsx'
 import Button from '../../components/Button/Button.jsx'
 
+const Hello = () => {
+  console.log('this is a hello world!')
+}
+
 const Tips = () => (
   <Carousel thereshold={window.innerWidth}>
 
     <Tip icon='http://placehold.it/100x100' color='red'>
       <p><strong>Cut out</strong> <i>caffeine, alcohol</i>, and any other <i>mood enhancers</i> or depressants to get an accurate reading</p>
 
-      <Button type='apply' to='hello' text='APPLY' />
+      <Button type='apply' callback={Hello} text='APPLY' />
       <Button type='add' to='hello2' text='ADD' />
       <Button type='settings' to='hello3' text='30m' />
       <Button type='settings-selected' to='hello4' text='1H' />

@@ -1,4 +1,3 @@
-
 .slider {
   display: flex;
   height: 100%;
@@ -8,19 +7,19 @@
 
 .previous {
   composes: slider;
-  composes: linear from '../../transitions.css';
+  composes: linear from '../../transitions.scss';
   transform: translateX(100%);
 }
 
 .next {
   composes: slider;
-  composes: linear from '../../transitions.css';
+  composes: linear from '../../transitions.scss';
   transform: translateX(-100%);
 }
 
 .reposition {
   composes: slider;
-  composes: linear from '../../transitions.css';
+  composes: linear from '../../transitions.scss';
   transform: translateX(0);
 }
 

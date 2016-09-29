@@ -43,6 +43,8 @@
 .apply {
   composes: large-rect;
   background-color: $lightblue;
+  position: absolute;
+  z-index: 20;
 }
 
 .add {
