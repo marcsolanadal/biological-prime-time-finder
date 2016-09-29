@@ -1,3 +1,4 @@
+var path = require('path')
 
 module.exports = {
   entry: './src/main.js',
@@ -18,16 +19,18 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'style-loader'
+        loaders: [
+          'style',
+          'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+        ]
       },
       {
-        test: /\.css$/,
-        loader: 'css-loader',
-        query: {
-          modules: true,
-          importLoaders: 1,
-          localIdentName: '[name]__[local]___[hash:base64:5]'
-        }
+        test: /\.scss$/,
+        loaders: [
+          'style',
+          'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+          'sass'
+        ]
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,

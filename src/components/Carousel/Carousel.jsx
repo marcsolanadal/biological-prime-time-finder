@@ -93,7 +93,7 @@ class Carousel extends React.Component {
         <Indicator
           current={pointer}
           number={this.props.children.length}
-          enabled
+          enabled={(pointer !== this.props.children.length - 1)}
         />
       </div>
     )

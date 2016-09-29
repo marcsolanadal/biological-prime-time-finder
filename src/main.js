@@ -7,7 +7,7 @@ import Tips from './views/Tips/Tips'
 import About from './views/About'
 import NoMatch from './views/NoMatch'
 
-import styles from './main.css'
+import styles from './main.scss'
 
 const App = () => {
   return (

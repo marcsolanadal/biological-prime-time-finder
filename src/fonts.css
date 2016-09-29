@@ -1,0 +1,30 @@
+.general {
+  font-family: 'Open Sans', sans-serif;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.header {
+  composes: general;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.sub-header {
+  composes: general;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.quote {
+  composes: general;
+  font-size: 20px;
+  font-weight: 600; /* semibold */
+  font-style: italic;
+}
+
+.normal {
+  composes: general;
+  font-weight: lighter;
+  font-size: 20px;
+}
