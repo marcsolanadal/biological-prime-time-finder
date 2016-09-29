@@ -14,6 +14,13 @@ const Tips = () => (
       <Button type='settings' to='hello3' text='30m' />
       <Button type='settings-selected' to='hello4' text='1H' />
 
+      <Button type='plus' to='hello4' text='+' />
+
+      <Button type='filter-energy' to='hello4' text='E' />
+      <Button type='filter-focus' to='hello4' text='F' />
+      <Button type='filter-motivation' to='hello4' text='M' />
+      <Button type='filter-unselected' to='hello4' text='M' />
+
       <div className='globalBtn' />
 
     </Tip>
