@@ -67,11 +67,23 @@ class Carousel extends React.Component {
         prev: false,
         isCentering: false
       })
+    } else { /* reposition */
+      this.setState({ sliderPosition: 0 })
     }
   }
   render () {
-    const { isSwiping, isCentering, pointer, sliderPosition, next, prev } = this.state
+    const { isSwiping, isCentering, pointer, sliderPosition, next, prev, pullFactor } = this.state
     const { thereshold } = this.props
+
+    let dx = sliderPosition
+    if ((pointer === 0 && sliderPosition > 0) ||
+      (pointer === this.props.children.length - 1 && sliderPosition < 0)) {
+      this.state.pullFactor += 0.2
+    } else {
+      this.state.pullFactor = 1
+    }
+    dx = sliderPosition / pullFactor
+
     return (
       <div styleName='carousel'>
         <Swipe
@@ -83,7 +95,7 @@ class Carousel extends React.Component {
           pointer={pointer}
           isSwiping={isSwiping}
           isCentering={isCentering}
-          position={sliderPosition}
+          position={dx}
           next={next}
           prev={prev}
           onTransitionEnd={this.handlePointer}

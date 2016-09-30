@@ -44,7 +44,7 @@
   composes: large-rect;
   background-color: $lightblue;
   position: absolute;
-  z-index: 20;
+  z-index: 999;
 }
 
 .add {

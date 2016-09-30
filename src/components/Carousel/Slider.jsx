@@ -8,6 +8,7 @@ const Slider = (props) => {
 
   let inlineStyle = {}
   let sliderClass = 'slider' // IMPORTANT: default value
+  let pullFactor = 1
 
   if (!isSwiping) {
     if (next) { sliderClass = 'next' }
