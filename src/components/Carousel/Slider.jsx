@@ -8,7 +8,6 @@ const Slider = (props) => {
 
   let inlineStyle = {}
   let sliderClass = 'slider' // IMPORTANT: default value
-  let pullFactor = 1
 
   if (!isSwiping) {
     if (next) { sliderClass = 'next' }
@@ -16,6 +15,7 @@ const Slider = (props) => {
     if (((!next && !prev) || (next && prev)) && isCentering) {
       sliderClass = 'reposition'
     }
+    if (position === 0) { sliderClass = 'slider' } /* z-index button fix */
   } else {
     inlineStyle = { transform: `translateX(${position}px)` }
   }

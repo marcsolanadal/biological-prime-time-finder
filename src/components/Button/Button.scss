@@ -44,12 +44,14 @@
   composes: large-rect;
   background-color: $lightblue;
   position: absolute;
-  z-index: 999;
+  z-index: 20;
 }
 
 .add {
   composes: large-rect;
   background-color: $red;
+  transform-style: preserve-3d;
+  transform: translateZ(1em);
 }
 
 .settings {
