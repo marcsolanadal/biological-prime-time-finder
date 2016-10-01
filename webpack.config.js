@@ -43,6 +43,7 @@ module.exports = {
     includePaths: [path.resolve(__dirname, './src')]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    root: path.resolve('./src'),
+    extensions: ['', '.js', '.jsx', '.scss']
   }
 }

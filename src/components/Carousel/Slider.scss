@@ -7,19 +7,19 @@
 
 .previous {
   composes: slider;
-  composes: linear from '../../transitions.scss';
+  composes: linear from 'transitions';
   transform: translateX(100%);
 }
 
 .next {
   composes: slider;
-  composes: linear from '../../transitions.scss';
+  composes: linear from 'transitions';
   transform: translateX(-100%);
 }
 
 .reposition {
   composes: slider;
-  composes: linear from '../../transitions.scss';
+  composes: linear from 'transitions';
   transform: translateX(0);
 }
 
