@@ -29,6 +29,7 @@ module.exports = {
         loaders: [
           'style',
           'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+          'resolve-url',
           'sass'
         ]
       },
@@ -37,6 +38,9 @@ module.exports = {
         loader: 'file-loader?name=public/fonts/[name].[ext]'
       }
     ]
+  },
+  sassLoader: {
+    includePaths: [path.resolve(__dirname, './src')]
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
