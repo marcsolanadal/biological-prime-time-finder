@@ -29,7 +29,6 @@ module.exports = {
         loaders: [
           'style',
           'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-          'resolve-url',
           'sass'
         ]
       },
@@ -40,10 +39,10 @@ module.exports = {
     ]
   },
   sassLoader: {
-    includePaths: [path.resolve(__dirname, './src')]
+    includePaths: [ path.resolve(__dirname, './src') ]
   },
   resolve: {
-    root: path.resolve('./src'),
+    root: [ path.resolve('./src') ],
     extensions: ['', '.js', '.jsx', '.scss']
   }
 }
