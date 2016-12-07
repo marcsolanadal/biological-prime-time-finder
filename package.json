@@ -40,7 +40,7 @@
     "webpack-dev-server": "^1.15.1"
   },
   "scripts": {
-    "serve": "webpack-dev-server --inline --open"
+    "dev": "webpack-dev-server --content-base public/ --inline --open"
   },
   "repository": {
     "type": "git",
